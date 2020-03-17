@@ -15,8 +15,10 @@ import {
   Input,
   CheckBox,
   ListItem,
+  Toast,
 } from 'native-base';
 import restCall from '../services/Request';
+import axios from 'axios';
 
 export default class Login extends React.Component {
   constructor(props) {
@@ -25,6 +27,7 @@ export default class Login extends React.Component {
     this.state = {
       userId: '',
       userPw: '',
+      showToast: false,
     };
   }
 
@@ -33,15 +36,58 @@ export default class Login extends React.Component {
     console.log('userId ; = ' + this.state.userId);
     console.log('userPw ; = ' + this.state.userPw);
 
-    restCall.apiCall(
-      'https://4klaxw2jhg.execute-api.ap-northeast-2.amazonaws.com/getUserInfo/',
-      'POST',
-      false,
-      {
-        userId: this.state.userId,
-        userPw: this.state.userPw,
-      },
-    );
+    const {userId} = this.state;
+    const {userPw} = this.state;
+
+    if (userId.length < 5) {
+      Toast.show({
+        text: '아이디는 5자리이상 입력하세요.',
+        buttonText: '확인',
+        type: 'warning',
+        duration: 2000,
+      });
+      return;
+    }
+
+    if (userPw.length < 5) {
+      Toast.show({
+        text: '비밀번호는 5자리이상 입력하세요.',
+        buttonText: '확인',
+        type: 'warning',
+        duration: 2000,
+      });
+      return;
+    }
+
+    //rest api call
+    axios
+      .post(
+        'https://4klaxw2jhg.execute-api.ap-northeast-2.amazonaws.com/getUserInfo/',
+        {
+          userId: this.state.userId,
+          userPw: this.state.userPw,
+        },
+      )
+      .then(function(response) {
+        if (response.data.list.length == 0) {
+          Toast.show({
+            text: '아이디 또는 비밀번호가 틀렸습니다.',
+            buttonText: '확인',
+            type: 'danger',
+            duration: 2000,
+          });
+        } else {
+          Toast.show({
+            text: '로그인성공.',
+            buttonText: '확인',
+            type: 'success',
+            duration: 2000,
+          });
+        }
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
   };
 
   render() {
@@ -61,6 +107,7 @@ export default class Login extends React.Component {
               <Input
                 value={this.state.userId}
                 onChangeText={userId => this.setState({userId})}
+                maxLength={14}
               />
             </Item>
             <Item fixedLabel last>

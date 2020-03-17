@@ -8,6 +8,7 @@ import Logo from './src/components/Logo';
 import Login from './src/components/Login';
 import Test1 from './src/components/Test1';
 import Test2 from './src/components/Test2';
+import {Root} from 'native-base';
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -23,12 +24,14 @@ const DrawerNavigator = () => {
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator headerMode="none" initialRouteName={Login}>
-        <Stack.Screen name="Logo" component={Logo} />
-        <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="DrawerNavigator" component={DrawerNavigator} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Root>
+      <NavigationContainer>
+        <Stack.Navigator headerMode="none" initialRouteName={Login}>
+          <Stack.Screen name="Logo" component={Logo} />
+          <Stack.Screen name="Login" component={Login} />
+          <Stack.Screen name="DrawerNavigator" component={DrawerNavigator} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </Root>
   );
 }

@@ -27,6 +27,7 @@ class Request {
     const res = await fetch(`${this.api_url}${url}`, payload);
     const status = res.status;
     const body = await res.json();
+    console.log('res.json(): =' + res.json());
     return {status, body};
   }
 
@@ -52,8 +53,10 @@ class Request {
   handleCommonError(response, auth = false) {
     if (response.status === 401 && auth) {
       // window.location(api.login)
+      console.log('에러발생');
     }
     if (response.status !== 200 && response.status !== 201) {
+      console.log('에러발생11111222');
       throw new Error(response.status);
     }
     return;
