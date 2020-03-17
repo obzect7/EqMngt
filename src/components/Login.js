@@ -1,5 +1,6 @@
 import React from 'react';
 import {StatusBar} from 'react-native';
+import styles from '../styles/style';
 import {
   Button,
   Text,
@@ -8,45 +9,41 @@ import {
   CardItem,
   Body,
   Content,
-  Header,
-  Title,
-  Left,
-  Icon,
-  Right,
+  Form,
+  Item,
+  Label,
+  Input,
 } from 'native-base';
 
 export default class Login extends React.Component {
   render() {
     return (
       <Container>
-        <Header>
-          <Left>
-            <Button
-              transparent
-              onPress={() => this.props.navigation.toggleDrawer()}>
-              <Icon name="menu" type="Ionicons" />
-            </Button>
-          </Left>
-          <Body>
-            <Title>HomeScreen</Title>
-          </Body>
-          <Right />
-        </Header>
-        <Content padder>
+        <Content contentContainerStyle={styles.contentCenter} padder>
           <Card>
             <CardItem>
               <Body>
-                <Text>Chat App to talk some awesome people!</Text>
+                <Text>로고를 넣으세요</Text>
               </Body>
             </CardItem>
           </Card>
+          <Form>
+            <Item fixedLabel>
+              <Label>아이디</Label>
+              <Input />
+            </Item>
+            <Item fixedLabel last>
+              <Label>비밀번호</Label>
+              <Input />
+            </Item>
+          </Form>
           <Button
             full
             rounded
             dark
             style={{marginTop: 10}}
             onPress={() => this.props.navigation.navigate('Chat')}>
-            <Text>Chat With People</Text>
+            <Text>로그인</Text>
           </Button>
           <Button
             full
@@ -54,7 +51,7 @@ export default class Login extends React.Component {
             primary
             style={{marginTop: 10}}
             onPress={() => this.props.navigation.navigate('ProfileScreen')}>
-            <Text>Goto Profiles</Text>
+            <Text>회원가입</Text>
           </Button>
         </Content>
       </Container>

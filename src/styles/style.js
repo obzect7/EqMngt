@@ -47,4 +47,9 @@ export default StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  contentCenter: {
+    justifyContent: 'center',
+    flex: 1,
+    margin: 20,
+  },
 });
