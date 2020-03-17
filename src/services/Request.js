@@ -3,7 +3,7 @@
  */
 class Request {
   constructor() {
-    this.api_url = 'http://localhost:3030';
+    this.api_url = '';
   }
 
   /**
@@ -19,8 +19,10 @@ class Request {
       mode: 'cors',
       headers: this.buildHeaders(token),
     };
+    console.log('params: =' + params);
     if (params) {
       payload.body = JSON.stringify(params);
+      console.log('payload.body: =' + JSON.stringify(params));
     }
     const res = await fetch(`${this.api_url}${url}`, payload);
     const status = res.status;
