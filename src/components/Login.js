@@ -17,17 +17,17 @@ import {
   ListItem,
   Toast,
 } from 'native-base';
-import restCall from '../services/Request';
 import axios from 'axios';
+import Spinner from 'react-native-loading-spinner-overlay';
 
 export default class Login extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      userId: '',
-      userPw: '',
-      showToast: false,
+      userId: 'test1234',
+      userPw: 'qwer1234',
+      spinner: false,
     };
   }
 
@@ -59,7 +59,10 @@ export default class Login extends React.Component {
       return;
     }
 
-    //rest api call
+    this.setState({
+      spinner: true,
+    });
+
     axios
       .post(
         'https://4klaxw2jhg.execute-api.ap-northeast-2.amazonaws.com/getUserInfo/',
@@ -68,8 +71,13 @@ export default class Login extends React.Component {
           userPw: this.state.userPw,
         },
       )
-      .then(function(response) {
-        if (response.data.list.length == 0) {
+      .then(result => {
+        this.setState({
+          spinner: false,
+        });
+
+        console.log(result, 'success');
+        if (result.data.list.length == 0) {
           Toast.show({
             text: '아이디 또는 비밀번호가 틀렸습니다.',
             buttonText: '확인',
@@ -77,16 +85,11 @@ export default class Login extends React.Component {
             duration: 2000,
           });
         } else {
-          Toast.show({
-            text: '로그인성공.',
-            buttonText: '확인',
-            type: 'success',
-            duration: 2000,
-          });
+          this.props.navigation.navigate('DrawerNavigator');
         }
       })
-      .catch(function(error) {
-        console.log(error);
+      .catch(function(err) {
+        console.log(err, 'fail');
       });
   };
 
@@ -130,7 +133,7 @@ export default class Login extends React.Component {
             rounded
             dark
             style={{marginTop: 10}}
-            onPress={() => this.getUserLoginInfo()}>
+            onPress={this.getUserLoginInfo}>
             <Text>로그인</Text>
           </Button>
           <Button
@@ -138,9 +141,14 @@ export default class Login extends React.Component {
             rounded
             primary
             style={{marginTop: 10}}
-            onPress={() => this.getUserLoginInfo()}>
+            onPress={this.getUserLoginInfo}>
             <Text>회원가입</Text>
           </Button>
+          <Spinner
+            visible={this.state.spinner}
+            textStyle={styles.spinnerTextStyle}
+            textContent={''}
+          />
         </Content>
       </Container>
     );

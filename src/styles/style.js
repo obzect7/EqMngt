@@ -52,4 +52,7 @@ export default StyleSheet.create({
     flex: 1,
     margin: 20,
   },
+  spinnerTextStyle: {
+    color: '#FFF',
+  },
 });

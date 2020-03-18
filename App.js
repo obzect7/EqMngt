@@ -16,7 +16,7 @@ const Stack = createStackNavigator();
 const DrawerNavigator = () => {
   return (
     <Drawer.Navigator keyboardDismissMode="none" initialRouteName={Login}>
-      <Drawer.Screen name="테스트1" component={Test1} />
+      <Drawer.Screen name="게시판1" component={Test1} />
       <Drawer.Screen name="테스트2" component={Test2} />
     </Drawer.Navigator>
   );
@@ -27,9 +27,10 @@ export default function App() {
     <Root>
       <NavigationContainer>
         <Stack.Navigator headerMode="none" initialRouteName={Login}>
+          {/*사이드 메뉴 */}
+          <Stack.Screen name="DrawerNavigator" component={DrawerNavigator} />
           <Stack.Screen name="Logo" component={Logo} />
           <Stack.Screen name="Login" component={Login} />
-          <Stack.Screen name="DrawerNavigator" component={DrawerNavigator} />
         </Stack.Navigator>
       </NavigationContainer>
     </Root>
