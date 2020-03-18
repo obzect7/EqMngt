@@ -8,6 +8,10 @@ import Logo from './src/components/Logo';
 import Login from './src/components/Login';
 import Test1 from './src/components/Test1';
 import Test2 from './src/components/Test2';
+
+import BoardAdd from './src/components/BoardAdd';
+import BoardList from './src/components/BoardList';
+import TodoList from './src/components/TodoList';
 import {Root} from 'native-base';
 
 const Drawer = createDrawerNavigator();
@@ -15,9 +19,10 @@ const Stack = createStackNavigator();
 
 const DrawerNavigator = () => {
   return (
-    <Drawer.Navigator keyboardDismissMode="none" initialRouteName={Login}>
-      <Drawer.Screen name="게시판1" component={Test1} />
-      <Drawer.Screen name="테스트2" component={Test2} />
+    <Drawer.Navigator keyboardDismissMode="none" initialRouteName={BoardList}>
+      <Drawer.Screen name="게시판1" component={BoardList} />
+      <Drawer.Screen name="설비일지" component={BoardList} />
+      <Drawer.Screen name="달력" component={TodoList} />
     </Drawer.Navigator>
   );
 };
